@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>雅思在线VIP保分班</title>
+  
+  <script type="text/javascript" src="http://img1.gximg.cn/v/static/js/jquery-1.9.1.min.js"></script>
+  <!--引入videoJS的样式，videoJS的JS文件，还有线上地址-->
+  <link href="css/video-js.css" rel="stylesheet">
+  <script src="js/videojs-ie8.min.js"></script>
+  <script src="http://vjs.zencdn.net/5.18.4/video.min.js"></script>
+  <script src="js/video.min.js"></script>
+</head>
+<body>
+<div class="ieltscanonvip">
+  <div class="vip-newModule">
+    <div class="vip-video-con">
+      <div class="vip-video-small" id="vipVideoSmall">
+        <img src="http://www.guixue.com/p/ielts/vip201704/images/video.jpg" alt="" onclick="videoShow()" id="del">
+        <!--<video src="http://cm14-ccm1-2.play.bokecc.com/flvs/ca/QxEgV/uDyYyxJ1Nb-20.mp4?t=1544769348&key=97B1DF5994EBAB61F639BF553125BA93" controls="controls" autoplay ></video>-->
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(window).scrollTop(750);
+  
+  /*vip保分班视频2018.9.14添加兼容IE8视频播放*/
+  if (/MSIE 8.0/.test(navigator.userAgent)) {
+    /*兼容IE8没有封面的逻辑*/
+    $("#del").css({display: "none"});
+    $("#vipVideoSmall").append("<img src='http://www.guixue.com/p/ielts/vip201704/images/video.jpg' onclick='imgHidden()'" +
+        " style='z-index: 500;position: absolute;\n" +
+        "       left: 0;top: 0;'>");
+    /*IE8兼容图片实现点击隐藏*/
+    function imgHidden() {
+      var flag = true;
+      $("#vipVideoSmall").html('  <video id="my-video" class="video-js my-video-play myVideoClick"\n' +
+          '               controls\n' +
+          '               preload="auto"\n' +
+          '               width="534px" height="307px"\n' +
+          '               data-setup="{}"\n' +
+          '               style="display:block">\n' +
+          '          <source src="http://cm14-ccm1-2.play.bokecc.com/flvs/ca/QxEgV/uDyYyxJ1Nb-20.mp4?t=1544769348&key=97B1DF5994EBAB61F639BF553125BA93" type="video/mp4">\n' +
+          '          <!--<source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">\n' +
+          '          <source src="http://vjs.zencdn.net/v/oceans.ogv" type="video/ogg">-->\n' +
+          '          <p class="vjs-no-js">\n' +
+          '            To view this video please enable JavaScript, and consider upgrading to a web browser that\n' +
+          '            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>\n' +
+          '          </p>\n' +
+          '        </video>');
+    
+      var myPlayer = videojs('my-video');
+      videojs("my-video").ready(function () {
+        var myPlayer = this;
+        if (flag) {
+          myPlayer.play();
+          flag = false;
+          return;
+        } else {
+          myPlayer.pause();
+          flag = true;
+        }
+      });
+      /*处理视频按钮*/
+      var contPlay = $(".vjs-play-control");
+      var contVoice = $(".vjs-volume-menu-button");
+      var contScreen = $(".vjs-remaining-time").css({width: "48px"});
+      contPlay.append("<div class='myVideoPlay' style='display: none'>播放</div>");
+      contPlay.append("<div class='myVideoPause' >暂停</div>");
+      contScreen.append("<div style='position: absolute;top:0px;right:-32px' class='videoFull'>[全屏]</div>");
+      contScreen.append("<div style='position: absolute;top:0px;right:-32px;display: none' class='videoMiddle'>[中屏]</div>");
+      contVoice.append("<div style='position: absolute;top:10px;left:16px'>音量</div>");
+      
+      var flagScreen = false;
+      window.flagPlay = true;
+      $(".vjs-play-control").on("click", function (object) {
+        if (flagPlay) {
+          $(".myVideoPlay").show();
+          $(".myVideoPause").hide();
+          flagPlay = false;
+        } else {
+          $(".myVideoPlay").hide();
+          $(".myVideoPause").show();
+          flagPlay = true;
+        }
+      });
+      $(".vjs-fullscreen-control").on("click", function (object) {
+        if (flagScreen) {
+          $(".videoFull").show();
+          $(".videoMiddle").hide();
+          flagScreen = false
+        } else {
+          $(".videoFull").hide();
+          $(".videoMiddle").show();
+          flagScreen = true
+        }
+      })
+      /*处理视频按钮*/
+      /*兼容IE8没有封面的逻辑*/
+      /*在IE8下加一个遮罩层*/
+      <!--添加一个遮罩层-->
+      $("#vipVideoSmall").append('  <div id="hoverBox" style="width:534px;height:277px;opacity: 0;position: absolute;left: 0;top: 0;filter: progid:DXImageTransform.Microsoft.Alpha(opacity=1);background:black;z-index: 180"></div>\n');
+      $("#my-video").hover(function () {
+            $(".vjs-control-bar").css({visibility: "visible"});
+          },
+          function () {
+            $(".vjs-control-bar").css({visibility: "hidden"});
+          });
+      $("#hoverBox").hover(function () {
+            $(".vjs-control-bar").css({visibility: "visible"});
+          },
+          function () {
+            $(".vjs-control-bar").css({visibility: "hidden"});
+          });
+  
+    }
+    
+  }
+  
+  /*vip保分班视频2018.9.12添加*/
+  function videoShow() {
+    if (!/MSIE 8/.test(navigator.userAgent)) {
+      $("#vipVideoSmall").html('<video src="http://cm14-ccm1-2.play.bokecc.com/flvs/ca/QxEgV/uDyYyxJ1Nb-20.mp4?t=1544769348&key=97B1DF5994EBAB61F639BF553125BA93" ' +
+          'type="text/javascript" autoplay controls poster="http://www.guixue.com/p/ielts/vip201704/images/video.jpg">' +
+          '<\/video>');
+    }
+  }
+</script>
+
+</body>
+</html>
